@@ -5,7 +5,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def single_product
-    @products = Product.first
+    @products = Product.all.sample
     render "single_product.json.jb"
   end
 end

@@ -5,5 +5,9 @@
     price: product.price,
     image_url: product.image_url,
     description: product.description,
+    discount: product.is_discounted?,
+    tax: product.tax,
+    total: product.total,
+
   }
 end

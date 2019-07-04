@@ -2,9 +2,10 @@
   id: product.id,
   name: product.name,
   price: product.price,
-  image_url: product.image_url,
   description: product.description,
   discount: product.is_discounted?,
+  supplier: product.supplier,
+  images: product.images,
   tax: product.tax,
   total: product.total,
 

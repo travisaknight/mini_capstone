@@ -6,6 +6,7 @@
   discount: product.is_discounted?,
   supplier: product.supplier,
   images: product.images,
+  categories: product.categories,
   tax: product.tax,
   total: product.total,
 

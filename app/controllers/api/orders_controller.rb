@@ -7,21 +7,26 @@ class Api::OrdersController < ApplicationController
   end
 
   def create
-    product = Product.find_by(id: params[:product_id])
-    calculated_subtotal = product.price * params[:quantity].to_i
-    calculated_tax = product.tax * params[:quantity].to_i
-    calculate_total = product.total * params[:quantity].to_i
-
     @order = Order.new(
       user_id: current_user.id,
-      product_id: params[:product_id],
-      quantity: params[:quantity],
       subtotal: calculated_subtotal,
       tax: calculated_tax,
-      total: calculate_total,
+      total: calculated_total,
     )
     @order.save
     render "show.json.jb"
+
+    carted_products = current_user.carted_products.where(status: "carted")
+    calculated_subtotal = 0
+    calculated_tax = 0
+    calculated_total = 0
+    carted_products.each do |carted_product|
+      calculated_subtotal += carted_product.quantity * carted_product.product.price
+      calculated_tax += carted_product.quantity * carted_product.product.tax
+      calculated_total += carted_product.quantity * carted_product.product.total
+    end
+
+    carted_products.update_all(status: "purchased", order_id: @order.id)
 
     def show
       @order = current_user.orders.find_by(id: params[:user_id])

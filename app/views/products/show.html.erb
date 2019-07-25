@@ -6,4 +6,5 @@
   <h4> How I would describe it? </h4> 
   <p> <%= @product.description %></p>
   <a href="/products/<%= @product.id %>/edit">Edit Product</a>
+  <a href="/products<%= @product.id %>" data-method="delete" rel="nofollow">Delete</a>
   <a href="/products"> All Products</a>

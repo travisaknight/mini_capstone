@@ -5,24 +5,24 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @users = User.all
+    @suppliers = Supplier.all
     render "new.html.erb"
   end
 
   def create
     @product = Product.new(
-      user_id: params[:user_id],
+      # user_id: params[:user_id],
+      supplier_id: params[:supplier_id],
       name: params[:name],
       price: params[:price],
       description: params[:description],
-      supplier_id: params[:supplier_id],
       # url: params[:url],
     )
 
     if @product.save
       redirect_to "/products/#{@product.id}"
     else
-      @users = User.all
+      @suppliers = Supplier.all
       render "new.html.erb"
     end
   end
@@ -33,7 +33,22 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find_by(id: params[:id])
-    @users = User.all
+    @suppliers = Supplier.all
     render "edit.html.erb"
+  end
+
+  def update
+    @product = Product.find_by(id: params[:id])
+    @product.name = params[:name]
+    @product.price = params[:price]
+    @product.description = params[:description]
+    @product.supplier_id = params[:supplier_id]
+    @product.save
+    redirect_to "/products"
+  end
+
+  def destroy
+    @product = Product.find_by(id: params[:id])
+    @product.destroy
   end
 end

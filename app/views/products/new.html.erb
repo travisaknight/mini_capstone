@@ -16,10 +16,10 @@
     Supplier: <input type="text" name="supplier_id">
   </div>
   <div>
-    Choose a user:
+    Choose a supplier:
     <select name="user_id">
-      <% @users.each do |user| %>
-        <option value="<%= user.id %>"><%= user.name %></option>
+      <% @suppliers.each do |supplier| %>
+        <option value="<%= supplier.id %>"><%= supplier.name %></option>
       <% end %>
     </select>
   </div>
